@@ -71,7 +71,13 @@ namespace MovieRating.Domain.Service
 
         public int GetNumberOfRates(int movie, int rate)
         {
-            return -1;
+            int count = 0;
+            foreach (MovieReview m in rp.FindAll())
+            {
+                if (m.Movie == movie && m.Grade == rate)
+                    count++;
+            }
+            return count;
         }
 
         public List<int> GetMoviesWithHighestNumberOfTopRates()
