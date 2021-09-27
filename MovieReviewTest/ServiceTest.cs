@@ -11,14 +11,15 @@ namespace MovieReviewTest
 
         public ServiceTest()
         {
-            rr = new ReviewRepository();
+            rr = new ReviewRepository("MOCK.json");
             rs = new ReviewService(rr);
         }
 
         [Fact]
         public void TestAmountOfReviewsFromReviewer()
         {
-            int expectedResult = 547;
+            //ratings: expected=547 | reviewer=1
+            int expectedResult = 10;
             int wantedReviewer = 1;
             int amount = rs.GetNumberOfReviewsFromReviewer(wantedReviewer);
             Assert.Equal(expectedResult, amount);
@@ -27,8 +28,9 @@ namespace MovieReviewTest
         [Fact]
         public void TestAverageRatingFromReviewer()
         {
-            int wantedViewer = 6;
-            double expectedResult = 5;
+            //ratings: expected=??? | reviewer=1
+            int wantedViewer = 2;
+            double expectedResult = 3.1;
             double result = rs.GetAverageRateFromReviewer(wantedViewer);
             Assert.Equal(expectedResult, result);
         }
