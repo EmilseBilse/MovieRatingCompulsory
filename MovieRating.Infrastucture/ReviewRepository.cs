@@ -11,8 +11,7 @@ namespace MovieRating.Infrastucture
 {
     public class ReviewRepository : IReviewRepository
     {
-        private const string _fileName =
-            "/home/jagd/RiderProjects/MovieRatingCompulsory/MovieRating.Infrastucture/ratings.json";
+        private const string _fileName = "ratings.json";
 
         private static List<MovieReview> _list;
 
