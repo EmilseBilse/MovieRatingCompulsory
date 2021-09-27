@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using MovieRating.Core.IService;
 using MovieRating.Core.Model;
 using MovieRating.Domain.IRepositories;
@@ -9,6 +11,7 @@ namespace MovieRating.Domain.Service
     {
         private IReviewRepository rp;
         private List<MovieReview> _list = new List<MovieReview>();
+
         public ReviewService(IReviewRepository Irp)
         {
             rp = Irp;
@@ -42,7 +45,7 @@ namespace MovieRating.Domain.Service
 
             if (ratings == 0)
                 return -1;
-            
+
             // ReSharper disable once PossibleLossOfFraction
             double returnValue = total / ratings;
             return returnValue;
@@ -61,12 +64,34 @@ namespace MovieRating.Domain.Service
                 if (m.Movie == movie)
                     count++;
             }
+
             return count;
         }
 
         public double GetAverageRateOfMovie(int movie)
         {
-            return -1;
+            double rating = -1;
+            List<double> rates = new List<double>();
+            foreach (MovieReview m in rp.FindAll())
+            {
+                if (m.Movie == movie)
+                {
+                    rates.Add(m.Grade);
+                }
+            }
+
+            rates.ForEach(i =>
+            {
+                if (rating == -1)
+                {
+                    rating = i;
+                }
+                else
+                {
+                    rating += i;
+                }
+            });
+            return (rating/rates.Count);
         }
 
         public int GetNumberOfRates(int movie, int rate)
@@ -77,6 +102,7 @@ namespace MovieRating.Domain.Service
                 if (m.Movie == movie && m.Grade == rate)
                     count++;
             }
+
             return count;
         }
 
