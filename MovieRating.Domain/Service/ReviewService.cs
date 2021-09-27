@@ -55,7 +55,13 @@ namespace MovieRating.Domain.Service
 
         public int GetNumberOfReviews(int movie)
         {
-            return -1;
+            int count = 0;
+            foreach (MovieReview m in rp.FindAll())
+            {
+                if (m.Movie == movie)
+                    count++;
+            }
+            return count;
         }
 
         public double GetAverageRateOfMovie(int movie)
