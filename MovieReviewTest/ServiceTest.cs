@@ -86,7 +86,8 @@ namespace MovieReviewTest
         public void TestGetMostProductiveReviewers()
         {
             List<int> actual = rs.GetMostProductiveReviewers();
-            List<int> expected = new List<int>() { };
+            List<int> expected = new List<int>() {1,4};
+            Assert.Equal(expected,actual);
         }
     }
 }

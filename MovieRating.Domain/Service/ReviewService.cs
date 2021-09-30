@@ -135,11 +135,19 @@ namespace MovieRating.Domain.Service
             int most = 0;
             foreach (MovieReview movieReview in _list)
             {
-                reviewers.Add(movieReview.Reviewer);
+                int allReviewsFromReviewer = GetNumberOfReviews(movieReview.Reviewer);
+                if (allReviewsFromReviewer > most && !reviewers.Contains(movieReview.Reviewer))
+                {
+                    reviewers.Add(movieReview.Reviewer);
+                    most = allReviewsFromReviewer;
+                }
+                else if (allReviewsFromReviewer == most && !reviewers.Contains(movieReview.Reviewer))
+                {
+                    reviewers.Add(movieReview.Reviewer);
+                }
             }
-            reviewers.Sort();
-            reviewers.Reverse();
-            return reviewers.Distinct().ToList();
+
+            return reviewers;
         }
 
         public List<int> GetTopRatedMovies(int amount)
