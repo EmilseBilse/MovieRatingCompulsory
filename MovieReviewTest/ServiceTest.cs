@@ -48,9 +48,19 @@ namespace MovieReviewTest
         public void TestNumberOfReviews()
         {
             int movie = 1;
-            int exspectedNumberOfReviews = 3;
+            int expectedNumberOfReviews = 4;
             int actualNumberOfReviews = rs.GetNumberOfReviews(movie);
-            Assert.Equal(exspectedNumberOfReviews,actualNumberOfReviews);
+            Assert.Equal(expectedNumberOfReviews,actualNumberOfReviews);
+        }
+
+        [Fact]
+        public void TestGetNumberOfRates()
+        {
+            int movie = 1;
+            int rate = 4;
+            int expected = 2;
+            int actual = rs.GetNumberOfRates(movie, rate);
+            Assert.Equal(expected, actual);
         }
     }
 }
