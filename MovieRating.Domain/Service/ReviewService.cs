@@ -53,7 +53,16 @@ namespace MovieRating.Domain.Service
 
         public int GetNumberOfRatesByReviewer(int reviewer, int rate)
         {
-            return -1;
+            int i = 0;
+            foreach (MovieReview review in _list)
+            {
+                if (reviewer == review.Reviewer && rate == review.Grade)
+                {
+                    i++;
+                }
+            }
+
+            return i;
         }
 
         public int GetNumberOfReviews(int movie)
@@ -108,12 +117,29 @@ namespace MovieRating.Domain.Service
 
         public List<int> GetMoviesWithHighestNumberOfTopRates()
         {
-            return null;
+            List<int> movies = new List<int>();
+            foreach (var movieReview in _list)
+            {
+                if (movieReview.Grade == 5)
+                {
+                    movies.Add(movieReview.Movie);
+                }
+            }
+
+            return movies.Distinct().ToList();
         }
 
         public List<int> GetMostProductiveReviewers()
         {
-            return null;
+            List<int> reviewers = new List<int>();
+            int most = 0;
+            foreach (MovieReview movieReview in _list)
+            {
+                reviewers.Add(movieReview.Reviewer);
+            }
+            reviewers.Sort();
+            reviewers.Reverse();
+            return reviewers.Distinct().ToList();
         }
 
         public List<int> GetTopRatedMovies(int amount)
