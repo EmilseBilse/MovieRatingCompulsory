@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MovieRating.Core.IService;
+using MovieRating.Core.Model;
 using MovieRating.Domain.Service;
 using MovieRating.Infrastucture;
 using Xunit;
@@ -88,6 +90,35 @@ namespace MovieReviewTest
             List<int> actual = rs.GetMostProductiveReviewers();
             List<int> expected = new List<int>() {1,4};
             Assert.Equal(expected,actual);
+        }
+
+        [Fact]
+        public void TestGetTopRatedMovie()
+        {
+            int requestedAmount = 1;
+            List<int> expectedResult = new List<int>();
+            expectedResult.Add(18);
+            List<int> result = rs.GetTopRatedMovies(requestedAmount);
+            Assert.Equal(expectedResult, result);
+        }
+        
+        [Fact]
+        public void TestGetTopMoviesByReviewer()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Fact]
+        public void TestGetReviewersByMovie()
+        {
+            int wantedMovie = 4;
+            List<int> expectedResult = new List<int>();
+            expectedResult.Add(3);
+            expectedResult.Add(2);
+            expectedResult.Add(4);
+            expectedResult.Add(1);
+            List<int> result = rs.GetReviewersByMovie(wantedMovie);
+            Assert.Equal(expectedResult, result);
         }
     }
 }

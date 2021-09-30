@@ -152,17 +152,78 @@ namespace MovieRating.Domain.Service
 
         public List<int> GetTopRatedMovies(int amount)
         {
-            return null;
+            List<int> movies = new List<int>();
+            foreach(MovieReview review in _list)
+            {
+                if (!movies.Contains(review.Movie))
+                {
+                    movies.Add(review.Movie);
+                }
+            }
+            
+            Dictionary<int, int> movieTopReview = new Dictionary<int, int>();
+
+            foreach (int movie in movies)
+            {
+                int numberOfTopRates = GetNumberOfRates(movie, 5);
+                
+                movieTopReview.Add(movie, numberOfTopRates);
+            }
+
+            movieTopReview = movieTopReview.OrderBy(m => m.Value).ToDictionary(m => m.Key, m => m.Value);
+            List<int> topMovieList = new List<int>();
+            for (int i = movieTopReview.Count - amount; i < movieTopReview.Count; i++)
+            {
+                topMovieList.Add(movieTopReview.ElementAt(i).Key);
+            }
+            
+            return topMovieList;
         }
 
         public List<int> GetTopMoviesByReviewer(int reviewer)
         {
-            return null;
+            List<MovieReview> reviewsByReviewer = new List<MovieReview>();
+            foreach (MovieReview review in _list)
+            {
+                if (review.Reviewer == reviewer)
+                {
+                    reviewsByReviewer.Add(review);
+                }
+            }
+            reviewsByReviewer = reviewsByReviewer.OrderByDescending(r => r.Date).ToList();
+            reviewsByReviewer = reviewsByReviewer.OrderByDescending(r => r.Grade).ToList();
+
+            List<int> movieList = new List<int>();
+
+            foreach (MovieReview review in reviewsByReviewer)
+            {
+                movieList.Add(review.Movie);
+            }
+            return movieList;
         }
 
         public List<int> GetReviewersByMovie(int movie)
         {
-            return null;
+            List<MovieReview> reviewsOfMovie = new List<MovieReview>();
+            foreach (MovieReview movieReview in _list)
+            {
+                if (movieReview.Movie == movie)
+                {
+                    reviewsOfMovie.Add(movieReview);
+                }
+            }
+
+            reviewsOfMovie = reviewsOfMovie.OrderByDescending(r => r.Date).ToList();
+            reviewsOfMovie = reviewsOfMovie.OrderByDescending(r => r.Grade).ToList();
+            
+            List<int> movieList = new List<int>();
+
+            foreach (MovieReview review in reviewsOfMovie)
+            {
+                movieList.Add(review.Reviewer);
+            }
+            
+            return movieList;
         }
     }
 }
