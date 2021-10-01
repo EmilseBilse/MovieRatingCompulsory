@@ -105,7 +105,14 @@ namespace MovieReviewTest
         [Fact]
         public void TestGetTopMoviesByReviewer()
         {
-            throw new NotImplementedException();
+            int wantedReviewer = 5;
+            List<int> expectedResult = new List<int>();
+            expectedResult.Add(1);
+            expectedResult.Add(3);
+            expectedResult.Add(7);
+            expectedResult.Add(11);
+            List<int> result = rs.GetTopMoviesByReviewer(wantedReviewer);
+            Assert.Equal(expectedResult, result);
         }
 
         [Fact]
