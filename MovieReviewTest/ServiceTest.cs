@@ -33,7 +33,7 @@ namespace MovieReviewTest
         {
             //ratings: expected=??? | reviewer=1
             int wantedViewer = 2;
-            double expectedResult = 3.1;
+            double expectedResult = 3.090909090909091;
             double result = rs.GetAverageRateFromReviewer(wantedViewer);
             Assert.Equal(expectedResult, result);
         }
