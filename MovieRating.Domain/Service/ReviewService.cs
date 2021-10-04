@@ -43,10 +43,9 @@ namespace MovieRating.Domain.Service
                 }
             }
 
-            if (ratings == 0)
+            if (ratings == 0) 
                 return -1;
-
-            // ReSharper disable once PossibleLossOfFraction
+            
             double returnValue = total / ratings;
             return returnValue;
         }

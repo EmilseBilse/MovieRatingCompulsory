@@ -21,7 +21,6 @@ namespace MovieReviewTest
         [Fact]
         public void TestAmountOfReviewsFromReviewer()
         {
-            //ratings: expected=547 | reviewer=1
             int expectedResult = 10;
             int wantedReviewer = 1;
             int amount = rs.GetNumberOfReviewsFromReviewer(wantedReviewer);
@@ -31,7 +30,6 @@ namespace MovieReviewTest
         [Fact]
         public void TestAverageRatingFromReviewer()
         {
-            //ratings: expected=??? | reviewer=1
             int wantedViewer = 2;
             double expectedResult = 3.090909090909091;
             double result = rs.GetAverageRateFromReviewer(wantedViewer);
